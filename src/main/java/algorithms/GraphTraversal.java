@@ -17,10 +17,11 @@ public abstract class GraphTraversal<N extends Node, E extends Edge<N>> implemen
     private N currentNode;
     private E currentEdge;
 
-    public GraphTraversal(Graph graph) {
+    public GraphTraversal(Graph<N, E> graph) {
         this.graph = graph;
         this.visited = new HashSet<>();
         this.nodesToVisit = selectFirstNodes();
+        this.edgesToVisit = new ArrayList<>();
     }
 
     @Override
@@ -34,7 +35,7 @@ public abstract class GraphTraversal<N extends Node, E extends Edge<N>> implemen
             N nextNode = possibleNodes.remove(indexOfNext);
             E nextEdge = hasEdgesToVisit ? edgesToVisit.remove(indexOfNext) : null;
 
-            if (!isVisited(nextNode)) {
+            if (!isVisited(nextNode) && canVisitNode(nextNode) && canVisitEdge(nextEdge)) {
                 this.currentNode = nextNode;
                 this.currentEdge = nextEdge;
                 // This will be visited when we return the next node in #next()
@@ -85,4 +86,8 @@ public abstract class GraphTraversal<N extends Node, E extends Edge<N>> implemen
     abstract List<N> selectFirstNodes();
 
     abstract void visit(N node, Edge<N> edgeToNode);
+
+    abstract boolean canVisitNode(N node);
+
+    abstract boolean canVisitEdge(E edge);
 }
