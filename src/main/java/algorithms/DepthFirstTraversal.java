@@ -6,8 +6,8 @@ import model.Node;
 
 import java.util.List;
 
-public class DepthFirstSearch<N extends Node, E extends Edge<N>>  extends ListBackedGraphTraversal<N, E> {
-    public DepthFirstSearch(Graph<N, E> graph) {
+public class DepthFirstTraversal<N extends Node, E extends Edge<N>>  extends ListBackedGraphTraversal<N, E> {
+    public DepthFirstTraversal(Graph<N, E> graph) {
         super(graph);
     }
 
