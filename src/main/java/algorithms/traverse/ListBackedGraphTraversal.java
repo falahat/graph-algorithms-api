@@ -1,11 +1,10 @@
-package algorithms;
+package algorithms.traverse;
 
 import model.Edge;
 import model.Graph;
 import model.Node;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class ListBackedGraphTraversal<N extends Node, E extends Edge<N>> extends BaseGraphTraversal<N, E> {
     private List<TraversalStep<N, E>> possibleSteps;

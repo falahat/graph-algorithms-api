@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.traverse;
 
 import model.Edge;
 import model.Graph;
@@ -9,16 +9,23 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class BaseGraphTraversal<N extends Node, E extends Edge<N>> implements GraphTraversal<N, E> {
-    Graph<N, E> graph;
+    private Graph<N, E> graph;
     private Set<N> visitedNodes;
-    boolean isInitialized;
+    private boolean isInitialized;
+    private List<N> initialNodes;
 
     private TraversalStep<N, E> currentStep;
 
-    public BaseGraphTraversal(Graph<N, E> graph) {
+    // TODO: investigate "Possible heap pollution from parameterized vararg type"
+    public BaseGraphTraversal(Graph<N, E> graph, N... initialNodes) {
+        this(graph, Arrays.asList(initialNodes));
+    }
+
+    public BaseGraphTraversal(Graph<N, E> graph, List<N> initialNodes) {
         this.graph = graph;
         this.visitedNodes = new HashSet<>();
         this.isInitialized = false;
+        this.initialNodes = initialNodes;
     }
 
     public void initialize() {
@@ -74,10 +81,6 @@ public abstract class BaseGraphTraversal<N extends Node, E extends Edge<N>> impl
         throw new NoSuchElementException("Graph is fully traversed");
     }
 
-    public List<N> selectInitialNodes() {
-        return new ArrayList<>(graph.nodes());
-    }
-
     @Override
     public void markAsVisited(TraversalStep<N, E> step) {
         this.visitedNodes.add(step.node());
@@ -93,7 +96,7 @@ public abstract class BaseGraphTraversal<N extends Node, E extends Edge<N>> impl
     public abstract Optional<TraversalStep<N, E>> selectAndRemoveNextCandidate(); // TODO: rename to popNextCandidate?
 
     private List<TraversalStep<N, E>> getTraversalsFromInitialNodes() {
-        return selectInitialNodes().stream()
+        return initialNodes.stream()
                 .map(TraversalStep::<N, E>fromInitialNode)
                 .collect(Collectors.toList());
     }

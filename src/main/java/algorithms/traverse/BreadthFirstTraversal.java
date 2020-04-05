@@ -1,14 +1,13 @@
-package algorithms;
+package algorithms.traverse;
 
 import model.Edge;
 import model.Graph;
 import model.Node;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class BreadthFirstTraversal<N extends Node, E extends Edge<N>>  extends ListBackedGraphTraversal<N, E> {
-    protected BreadthFirstTraversal(Graph<N, E> graph) {
+    public BreadthFirstTraversal(Graph<N, E> graph) {
         super(graph);
     }
 
@@ -19,18 +18,5 @@ public class BreadthFirstTraversal<N extends Node, E extends Edge<N>>  extends L
         // begining of the list (i.e. at the front of the line.)
         // This performs as a Stack and has First-In-First-Out (LIFO) behavior
         return nextSteps.size() - 1;
-    }
-
-    public static class BreadFirstTraversalIterable<N extends Node, E extends Edge<N>> implements Iterable<TraversalStep<N, E>> {
-        private final Graph<N, E> graph;
-
-        public BreadFirstTraversalIterable(Graph<N, E> graph) {
-            this.graph = graph;
-        }
-
-        @Override
-        public Iterator<TraversalStep<N, E>> iterator() {
-            return new BreadthFirstTraversal<>(this.graph);
-        }
     }
 }

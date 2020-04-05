@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.traverse;
 
 import model.Edge;
 import model.Graph;
