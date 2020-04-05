@@ -5,7 +5,7 @@ import model.Node;
 
 import java.util.Iterator;
 
-public interface GraphTraversal <N extends Node, E extends Edge<N>> extends Iterator<TraversalStep<N, E>> {
+public interface GraphTraversal <N extends Node, E extends Edge<N>> extends Iterator<TraversalStep<N, E>>, Iterable<TraversalStep<N, E>> {
     void markAsVisited(TraversalStep<N, E> step);
     boolean isNotVisited(TraversalStep<N, E> step);
 
@@ -14,4 +14,11 @@ public interface GraphTraversal <N extends Node, E extends Edge<N>> extends Iter
     }
 
     default void onVisit(TraversalStep<N, E> step) {} // Do Nothing
+
+    @Override
+    default Iterator<TraversalStep<N, E>> iterator() {
+        return copy();
+    }
+
+    GraphTraversal<N, E> copy();
 }

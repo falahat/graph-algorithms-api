@@ -4,23 +4,35 @@ import model.Edge;
 import model.Graph;
 import model.Node;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class BaseGraphTraversal<N extends Node, E extends Edge<N>> implements GraphTraversal<N, E> {
     Graph<N, E> graph;
     private Set<N> visitedNodes;
+    boolean isInitialized;
 
     private TraversalStep<N, E> currentStep;
 
     public BaseGraphTraversal(Graph<N, E> graph) {
         this.graph = graph;
         this.visitedNodes = new HashSet<>();
+        this.isInitialized = false;
+    }
+
+    public void initialize() {
         addPossibleTraversals(getTraversalsFromInitialNodes());
     }
 
     @Override
     public final boolean hasNext() {
+        // If we are beginning the search, do a one-time setup of some parameters.
+        // We do not want to run this initialization unless all subclasses have also finished their constructors,
+        // so we do not call initialize() in BaseGraphTraversal's contructor.
+        if (!isInitialized) {
+            initialize();
+        }
 
         while (this.currentStep == null) {
             Optional<TraversalStep<N, E>> nextPossibleStepOpt = selectAndRemoveNextCandidate();
@@ -84,5 +96,16 @@ public abstract class BaseGraphTraversal<N extends Node, E extends Edge<N>> impl
         return selectInitialNodes().stream()
                 .map(TraversalStep::<N, E>fromInitialNode)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public GraphTraversal<N, E> copy() {
+        try {
+            return (GraphTraversal<N, E>) this.getClass().getConstructors()[0].newInstance(this.graph);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+            // TODO: do something
+            return null;
+        }
     }
 }
