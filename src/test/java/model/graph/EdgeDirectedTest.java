@@ -1,6 +1,8 @@
+package model.graph;
+
 import junit.framework.AssertionFailedError;
-import model.DirectedEdge;
-import model.Node;
+import model.edge.DirectedEdge;
+import model.node.Node;
 import org.junit.Assert;
 import org.junit.Test;
 

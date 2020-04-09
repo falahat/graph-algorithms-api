@@ -1,8 +1,8 @@
 package algorithms.traverse;
 
-import model.Edge;
-import model.Graph;
-import model.Node;
+import model.edge.Edge;
+import model.graph.Graph;
+import model.node.Node;
 
 import java.util.*;
 

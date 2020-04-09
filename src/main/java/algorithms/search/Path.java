@@ -1,8 +1,8 @@
 package algorithms.search;
 
 import algorithms.traverse.TraversalStep;
-import model.Edge;
-import model.Node;
+import model.edge.Edge;
+import model.node.Node;
 
 import java.util.List;
 import java.util.Optional;

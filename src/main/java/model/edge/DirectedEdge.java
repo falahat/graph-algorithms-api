@@ -1,4 +1,6 @@
-package model;
+package model.edge;
+
+import model.node.Node;
 
 public interface DirectedEdge<N extends Node> extends Edge<N> {
 

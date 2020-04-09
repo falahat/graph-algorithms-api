@@ -1,6 +1,8 @@
-import model.Edge;
-import model.Graph;
-import model.Node;
+package model;
+
+import model.edge.Edge;
+import model.graph.Graph;
+import model.node.Node;
 
 import java.util.ArrayList;
 import java.util.List;

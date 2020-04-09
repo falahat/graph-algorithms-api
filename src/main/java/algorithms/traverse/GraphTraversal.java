@@ -1,7 +1,7 @@
 package algorithms.traverse;
 
-import model.Edge;
-import model.Node;
+import model.edge.Edge;
+import model.node.Node;
 
 import java.util.Iterator;
 

@@ -1,4 +1,6 @@
-package model;
+package model.edge;
+
+import model.node.Node;
 
 public interface Edge<N extends Node> {
     N node1();

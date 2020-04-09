@@ -1,4 +1,7 @@
-package model;
+package model.graph;
+
+import model.node.Node;
+import model.edge.Edge;
 
 import java.util.Collection;
 import java.util.List;

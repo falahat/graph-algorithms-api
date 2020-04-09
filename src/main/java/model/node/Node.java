@@ -1,4 +1,4 @@
-package model;
+package model.node;
 
 public interface Node {
     String getUniqueIdentifier();

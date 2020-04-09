@@ -1,5 +1,7 @@
-import model.Edge;
-import model.Node;
+package model.graph;
+
+import model.edge.Edge;
+import model.node.Node;
 import org.junit.Assert;
 import org.junit.Test;
 

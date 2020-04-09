@@ -1,11 +1,10 @@
-import model.Edge;
-import model.Graph;
-import model.Node;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+package model.graph;
 
-import java.util.Collection;
+import model.GraphTestItemGenerator;
+import model.edge.Edge;
+import model.graph.Graph;
+import model.node.Node;
+import org.junit.Before;
 
 public abstract class GraphTest<N extends Node, E extends Edge<N>> {
     Graph<N, E> graph;

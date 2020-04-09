@@ -2,10 +2,10 @@ package algorithms.search;
 
 import algorithms.traverse.GraphTraversal;
 import algorithms.traverse.TraversalStep;
-import model.Edge;
-import model.Graph;
-import model.LabeledGraph;
-import model.Node;
+import model.edge.Edge;
+import model.graph.Graph;
+import model.graph.LabeledGraph;
+import model.node.Node;
 
 import java.util.*;
 import java.util.function.Predicate;
