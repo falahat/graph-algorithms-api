@@ -1,33 +1,22 @@
 package model.graph;
 
-import model.node.Node;
 import model.edge.Edge;
+import model.node.Node;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+public interface Graph<N, E> extends ReadOnlyGraph<N, E> {
+    Node add(N node);
 
-public interface Graph<N extends Node, E extends Edge<N>> {
+    Edge connect(Node node1, Node node2);
 
-    boolean contains(N node);
+    default Edge connect(N nodeValue1, N nodeValue2) {
+        return connect(node(nodeValue1), node(nodeValue2));
+    }
 
-    void add(N node);
-    void add(E edge);
+    void remove(Node node);
 
-    void remove(N node);
-    void remove(E edge);
+    void disconnect(Node node1, Node node2);
 
-    Collection<N> nodes();
-
-    Collection<E> edges();
-
-    Collection<E> edges(N node);
-
-    default List<N> neighbors(N node) {
-        return edges(node)
-                .stream()
-                .filter(edge -> !edge.isDirected() || node.equals(edge.node1()))
-                .map(edge -> edge.other(node))
-                .collect(Collectors.toList());
+    default void disconnect(N nodeValue1, N nodeValue2) {
+        disconnect(node(nodeValue1), node(nodeValue2));
     }
 }

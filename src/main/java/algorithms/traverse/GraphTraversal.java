@@ -1,22 +1,19 @@
 package algorithms.traverse;
 
-import model.edge.Edge;
-import model.node.Node;
-
 import java.util.Iterator;
 
-public interface GraphTraversal <N extends Node, E extends Edge<N>> extends Iterator<TraversalStep<N, E>>, Iterable<TraversalStep<N, E>> {
-    void markAsVisited(TraversalStep<N, E> step);
-    boolean isNotVisited(TraversalStep<N, E> step);
+public interface GraphTraversal <N, E> extends Iterator<TraversalStep>, Iterable<TraversalStep> {
+    void markAsVisited(TraversalStep step);
+    boolean isNotVisited(TraversalStep step);
 
-    default boolean canVisit(TraversalStep<N, E> step) {
+    default boolean canVisit(TraversalStep step) {
         return isNotVisited(step);
     }
 
-    default void onVisit(TraversalStep<N, E> step) {} // Do Nothing
+    default void onVisit(TraversalStep step) {} // Do Nothing
 
     @Override
-    default Iterator<TraversalStep<N, E>> iterator() {
+    default Iterator<TraversalStep> iterator() {
         return copy();
     }
 

@@ -2,43 +2,39 @@ package model.graph;
 
 import model.edge.Edge;
 import model.node.Node;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 import java.util.List;
 
-public abstract class EdgeTest<N extends Node, E extends Edge<N>> extends GraphTest<N, E> {
+public abstract class EdgeTest<N, E> extends GraphTest<N, E> {
 
     @Test
     public void testGettingZeroEdges() {
-        Collection<E> edges = graph.edges();
-        Assert.assertNotNull("Must not be null", edges);
-        Assert.assertTrue("Must be empty list", edges.isEmpty());
+        Collection<Edge> edges = graph.edges();
+        Assertions.assertNotNull(edges, "Must not be null");
+        Assertions.assertTrue(edges.isEmpty(), "Must be empty list");
     }
 
     @Test
     public void testGettingSingleEdge() {
-        List<N> nodes = itemGenerator().generateNodes(2);
-        E edge1 = itemGenerator().generateEdge(nodes.get(0), nodes.get(1));
+        List<Node> nodes = itemGenerator().generateNodes(2);
 
-        graph.add(edge1);
+        Edge edge1 = graph.connect(nodes.get(0), nodes.get(1));
 
-        Collection<E> edges = graph.edges();
-        Assert.assertTrue("Must contain edge1", edges.contains(edge1));
+        Collection<Edge> edges = graph.edges();
+        Assertions.assertTrue(edges.contains(edge1), "Must contain edge1");
     }
 
     @Test
     public void testGettingMultipleEdges() {
-        List<N> nodes = itemGenerator().generateNodes(4);
-        E edge1 = itemGenerator().generateEdge(nodes.get(0), nodes.get(1));
-        E edge2 = itemGenerator().generateEdge(nodes.get(2), nodes.get(3));
+        List<Node> nodes = itemGenerator().generateNodes(4);
+        Edge edge1 = graph.connect(nodes.get(0), nodes.get(1));
+        Edge edge2 = graph.connect(nodes.get(2), nodes.get(3));
 
-        graph.add(edge1);
-        graph.add(edge2);
-
-        Collection<E> edges = graph.edges();
-        Assert.assertTrue("Must contain edge1", edges.contains(edge1));
-        Assert.assertTrue("Must contain edge2", edges.contains(edge2));
+        Collection<Edge> edges = graph.edges();
+        Assertions.assertTrue(edges.contains(edge1), "Must contain edge1");
+        Assertions.assertTrue(edges.contains(edge2), "Must contain edge2");
     }
 }

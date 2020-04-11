@@ -1,6 +1,5 @@
 package algorithms.traverse;
 
-import model.edge.Edge;
 import model.graph.Graph;
 import model.node.Node;
 
@@ -8,20 +7,20 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public abstract class BaseGraphTraversal<N extends Node, E extends Edge<N>> implements GraphTraversal<N, E> {
+public abstract class BaseGraphTraversal<N, E> implements GraphTraversal<N, E> {
     private Graph<N, E> graph;
-    private Set<N> visitedNodes;
+    private Set<Node> visitedNodes;
     private boolean isInitialized;
-    private List<N> initialNodes;
+    private List<Node> initialNodes;
 
-    private TraversalStep<N, E> currentStep;
+    private TraversalStep currentStep;
 
     // TODO: investigate "Possible heap pollution from parameterized vararg type"
-    public BaseGraphTraversal(Graph<N, E> graph, N... initialNodes) {
+    public BaseGraphTraversal(Graph<N, E> graph, Node... initialNodes) {
         this(graph, Arrays.asList(initialNodes));
     }
 
-    public BaseGraphTraversal(Graph<N, E> graph, List<N> initialNodes) {
+    public BaseGraphTraversal(Graph<N, E> graph, List<Node> initialNodes) {
         this.graph = graph;
         this.visitedNodes = new HashSet<>();
         this.isInitialized = false;
@@ -42,12 +41,12 @@ public abstract class BaseGraphTraversal<N extends Node, E extends Edge<N>> impl
         }
 
         while (this.currentStep == null) {
-            Optional<TraversalStep<N, E>> nextPossibleStepOpt = selectAndRemoveNextCandidate();
+            Optional<TraversalStep> nextPossibleStepOpt = selectAndRemoveNextCandidate();
             if (nextPossibleStepOpt.isEmpty()) {
                 break;
             }
 
-            TraversalStep<N, E> nextPossibleStep = nextPossibleStepOpt.get();
+            TraversalStep nextPossibleStep = nextPossibleStepOpt.get();
             if (isNotVisited(nextPossibleStep) && canVisit(nextPossibleStep)) {
                 this.currentStep = nextPossibleStep;
                 // This will be visited when we return the next node in #next()
@@ -58,19 +57,19 @@ public abstract class BaseGraphTraversal<N extends Node, E extends Edge<N>> impl
     }
 
     @Override
-    public final TraversalStep<N, E> next() {
+    public final TraversalStep next() {
         if (hasNext()) {
-            TraversalStep<N, E> toReturn = this.currentStep;
+            TraversalStep toReturn = this.currentStep;
 
             // Mark this node as visted and call hooks
             markAsVisited(this.currentStep);
             onVisit(this.currentStep);
 
             // Calculate + insert next possible steps to traverse
-            N currentNode = currentStep.node();
-            List<TraversalStep<N, E>> nextSteps = graph.edges(currentNode)
+            Node currentNode = currentStep.node();
+            List<TraversalStep> nextSteps = graph.edges(currentNode)
                     .stream()
-                    .map(edgeToNextNode -> new TraversalStep<>(edgeToNextNode.other(currentNode), edgeToNextNode))
+                    .map(edgeToNextNode -> new TraversalStep(edgeToNextNode.other(currentNode), edgeToNextNode))
                     .collect(Collectors.toList());
 
             addPossibleTraversals(nextSteps);
@@ -82,20 +81,20 @@ public abstract class BaseGraphTraversal<N extends Node, E extends Edge<N>> impl
     }
 
     @Override
-    public void markAsVisited(TraversalStep<N, E> step) {
+    public void markAsVisited(TraversalStep step) {
         this.visitedNodes.add(step.node());
     }
 
     @Override
-    public boolean isNotVisited(TraversalStep<N, E> step) {
+    public boolean isNotVisited(TraversalStep step) {
         return !visitedNodes.contains(step.node());
     }
 
-    public abstract void addPossibleTraversals(Collection<TraversalStep<N, E>> nextPossible);
+    public abstract void addPossibleTraversals(Collection<TraversalStep> nextPossible);
 
-    public abstract Optional<TraversalStep<N, E>> selectAndRemoveNextCandidate(); // TODO: rename to popNextCandidate?
+    public abstract Optional<TraversalStep> selectAndRemoveNextCandidate(); // TODO: rename to popNextCandidate?
 
-    private List<TraversalStep<N, E>> getTraversalsFromInitialNodes() {
+    private List<TraversalStep> getTraversalsFromInitialNodes() {
         return initialNodes.stream()
                 .map(TraversalStep::<N, E>fromInitialNode)
                 .collect(Collectors.toList());

@@ -2,18 +2,31 @@ package model.edge;
 
 import model.node.Node;
 
-public interface Edge<N extends Node> {
-    N node1();
+/**
+ * Directed Edge
+ */
+public class Edge {
+    private final Node sourceNode;
+    private final Node destinationNode;
 
-    N node2();
+    public Edge(Node sourceNode, Node destinationNode) {
+        this.sourceNode = sourceNode;
+        this.destinationNode = destinationNode;
+    }
 
-    boolean isDirected();
+    public Node source() {
+        return this.sourceNode;
+    }
 
-    default N other(Node node) {
-        if (node.equals(node1())) {
-            return node2();
-        } else if (node.equals(node2())) {
-            return node1();
+    public Node destination() {
+        return this.destinationNode;
+    }
+
+    public Node other(Node node) {
+        if (node.equals(source())) {
+            return destination();
+        } else if (node.equals(destination())) {
+            return source();
         } else {
             throw new IllegalArgumentException("Node does not exist on this edge");
         }

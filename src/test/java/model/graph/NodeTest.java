@@ -2,40 +2,45 @@ package model.graph;
 
 import model.edge.Edge;
 import model.node.Node;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 
 import java.util.Collection;
 
-public abstract class NodeTest<N extends Node, E extends Edge<N>> extends GraphTest<N, E> {
+public abstract class NodeTest<N extends Node, E extends Edge> extends GraphTest<N, E> {
 
     @Test
     public void testGettingZeroNodes() {
-        Collection<N> nodes = graph.nodes();
-        Assert.assertNotNull("Must not be null", nodes);
-        Assert.assertTrue("Must be empty list", nodes.isEmpty());
+        Collection<Node> nodes = graph.nodes();
+        Assertions.assertNotNull(nodes, "Must not be null");
+        Assertions.assertTrue(nodes.isEmpty(), "Must be empty list");
     }
 
     @Test
     public void testGettingSingleNodes() {
-        N node1 = itemGenerator().generateNode();
+        Node node1 = graph.add(itemGenerator().generateNodeKey());
 
-        graph.add(node1);
+        Collection<Node> nodes = graph.nodes();
+        Assertions.assertTrue(nodes.contains(node1), "Must contain node1");
+    }
 
-        Collection<N> nodes = graph.nodes();
-        Assert.assertTrue("Must contain node1", nodes.contains(node1));
+    @Test
+    public void testGettingNodeByValue() {
+        Node node1 = graph.add(itemGenerator().generateNodeKey());
+
+        Collection<Node> nodes = graph.nodes();
+        Assertions.assertTrue(nodes.contains(node1), "Must contain node1");
     }
 
     @Test
     public void testGettingMultipleNodes() {
-        N node1 = itemGenerator().generateNode();
-        N node2 = itemGenerator().generateNode();
+        Node node1 = graph.add(itemGenerator().generateNodeKey());
+        Node node2 = graph.add(itemGenerator().generateNodeKey());
 
-        graph.add(node1);
-        graph.add(node2);
 
-        Collection<N> nodes = graph.nodes();
-        Assert.assertTrue("Must contain node1", nodes.contains(node1));
-        Assert.assertTrue("Must contain node2", nodes.contains(node2));
+        Collection<Node> nodes = graph.nodes();
+        Assertions.assertTrue(nodes.contains(node1), "Must contain node1");
+        Assertions.assertTrue(nodes.contains(node2), "Must contain node2");
     }
 }

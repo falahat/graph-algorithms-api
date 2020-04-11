@@ -14,11 +14,10 @@ import java.util.Optional;
  * @param <N>
  * @param <E>
  * @param <L>
- * @param <L>
  */
-public class LabeledGraph<N extends Node, E extends Edge<N>, L> extends DelegateGraph<N, E> {
-    private final Map<N, L> labelPerNode;
-    private final Map<E, L> labelPerEdge;
+public class LabeledGraph<N, E, L> extends DelegateGraph<N, E> {
+    private final Map<Node, L> labelPerNode;
+    private final Map<Edge, L> labelPerEdge;
 
     public LabeledGraph(Graph<N, E> innerGraph) {
         super(innerGraph);
@@ -26,31 +25,32 @@ public class LabeledGraph<N extends Node, E extends Edge<N>, L> extends Delegate
         this.labelPerEdge = new HashMap<>();
     }
 
-    public Optional<L> getLabel(N node) {
+    public Optional<L> getLabel(Node node) {
         return Optional.ofNullable(labelPerNode.getOrDefault(node, null));
     }
 
-    public Optional<L> getLabel(E edge) {
+    public Optional<L> getLabel(Edge edge) {
         return Optional.ofNullable(labelPerEdge.getOrDefault(edge, null));
     }
 
-    public void setLabel(N node, L label) {
+    public void setLabel(Node node, L label) {
         labelPerNode.put(node, label);
     }
 
-    public void setLabel(E edge, L label) {
+    public void setLabel(Edge edge, L label) {
         labelPerEdge.put(edge, label);
     }
 
     @Override
-    public void remove(N node) {
-        super.remove(node);
+    public void remove(Node node) {
         this.labelPerNode.remove(node);
+        super.remove(node);
     }
 
     @Override
-    public void remove(E edge) {
-        super.remove(edge);
-        this.labelPerEdge.remove(edge);
+    public void disconnect(Node node1, Node node2) {
+        Edge toRemove = edge(node1, node2);
+        this.labelPerEdge.remove(toRemove);
+        super.disconnect(node1, node2);
     }
 }

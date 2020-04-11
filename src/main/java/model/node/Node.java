@@ -1,5 +1,18 @@
 package model.node;
 
-public interface Node {
-    String getUniqueIdentifier();
+public class Node {
+    private final String uniqueNodeId;
+
+    public Node(String uniqueNodeId) {
+        this.uniqueNodeId = uniqueNodeId;
+    }
+
+    public String getUniqueIdentifier() {
+        return this.uniqueNodeId;
+    }
+
+    // TODO: remove this method and migrate away from using "N" anywhere
+    public static <N> Node withNodeId(N nodeId) {
+        return new Node(nodeId.toString());
+    }
 }

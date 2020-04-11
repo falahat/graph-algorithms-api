@@ -1,15 +1,12 @@
 package model.graph;
 
 import model.GraphTestItemGenerator;
-import model.edge.Edge;
-import model.graph.Graph;
-import model.node.Node;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
-public abstract class GraphTest<N extends Node, E extends Edge<N>> {
+public abstract class GraphTest<N, E> {
     Graph<N, E> graph;
 
-    @Before
+    @BeforeEach
     public void setupGraph() {
         this.graph = itemGenerator().generateGraph();
     }

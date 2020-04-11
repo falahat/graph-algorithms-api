@@ -3,7 +3,7 @@ package model.graph;
 import model.edge.Edge;
 import model.node.Node;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * This serves as a view of an existing graph. If nodes are added or removed from either graph,
@@ -31,7 +31,7 @@ import java.util.Collection;
  * @param <N>
  * @param <E>
  */
-public class DelegateGraph<N extends Node, E extends Edge<N>> implements Graph<N, E> {
+public class DelegateGraph<N, E> implements Graph<N, E> {
     private final Graph<N, E> innerGraph;
 
     public DelegateGraph(Graph<N, E> innerGraph) {
@@ -39,42 +39,82 @@ public class DelegateGraph<N extends Node, E extends Edge<N>> implements Graph<N
     }
 
     @Override
-    public boolean contains(N node) {
-        return innerGraph.contains(node);
+    public Node add(N node) {
+        return innerGraph.add(node);
     }
 
     @Override
-    public void add(N node) {
-        innerGraph.add(node);
+    public Edge connect(Node node1, Node node2) {
+        return innerGraph.connect(node1, node2);
     }
 
     @Override
-    public void add(E edge) {
-        innerGraph.add(edge);
+    public Edge connect(N nodeValue1, N nodeValue2) {
+        return innerGraph.connect(nodeValue1, nodeValue2);
     }
 
     @Override
-    public void remove(N node) {
+    public void remove(Node node) {
         innerGraph.remove(node);
     }
 
     @Override
-    public void remove(E edge) {
-        innerGraph.remove(edge);
+    public void disconnect(Node node1, Node node2) {
+        innerGraph.disconnect(node1, node2);
     }
 
     @Override
-    public Collection<N> nodes() {
+    public void disconnect(N nodeValue1, N nodeValue2) {
+        innerGraph.disconnect(nodeValue1, nodeValue2);
+    }
+
+    @Override
+    public List<Node> nodes() {
         return innerGraph.nodes();
     }
 
     @Override
-    public Collection<E> edges() {
+    public List<Node> nodes(N targetValue) {
+        return innerGraph.nodes(targetValue);
+    }
+
+    @Override
+    public Node node(N targetValue) {
+        return innerGraph.node(targetValue);
+    }
+
+    @Override
+    public Edge edge(Node node1, Node node2) {
+        return innerGraph.edge(node1, node2);
+    }
+
+    @Override
+    public Edge edge(E targetValue) {
+        return innerGraph.edge(targetValue);
+    }
+
+    @Override
+    public List<Edge> edges() {
         return innerGraph.edges();
     }
 
     @Override
-    public Collection<E> edges(N node) {
+    public List<Edge> edges(E targetValue) {
+        return innerGraph.edges(targetValue);
+    }
+
+    @Override
+    public List<Edge> edges(Node node) {
         return innerGraph.edges(node);
+    }
+
+    @Override
+    public boolean contains(Node node) {
+        return innerGraph.contains(node);
+    }
+
+    @Override
+    public List<Node> neighbors(Node node) {
+        return innerGraph.neighbors(node);
     }
 }
