@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class ListBackedGraphTraversal extends BaseGraphTraversal {
+public abstract class ListBackedGraphTraversal<N, E> extends BaseGraphTraversal<N, E> {
     private List<TraversalStep> possibleSteps;
 
     public ListBackedGraphTraversal(Graph graph) {

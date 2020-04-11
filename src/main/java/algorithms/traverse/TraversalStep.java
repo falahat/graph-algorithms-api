@@ -26,8 +26,27 @@ public class TraversalStep {
         return Optional.ofNullable(edgeToNode);
     }
 
-    public static TraversalStep fromInitialNode(Node node) {
+    public static <N, E> StepToNode<N, E> toNode(Node node) {
+        return new StepToNode<>(node);
+    }
+
+    public static <N, E> TraversalStep fromInitialNode(Node node) {
         return new TraversalStep(node);
     }
 
+    public static class StepToNode<N, E> {
+        private final Node node;
+
+        public StepToNode(Node node) {
+            this.node = node;
+        }
+
+        public TraversalStep withEdge(Edge edgeToNode) {
+            return new TraversalStep(this.node, edgeToNode);
+        }
+
+        public TraversalStep withoutEdge() {
+            return new TraversalStep(this.node);
+        }
+    }
 }

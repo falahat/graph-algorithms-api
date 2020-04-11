@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public interface GraphTestItemGenerator {
+public interface GraphTestItemGenerator<N, E> {
+    N generateNodeKey();
 
     Graph generateGraph();
 
