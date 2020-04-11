@@ -6,7 +6,7 @@ import model.node.Node;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface ReadOnlyGraph<N, E> {
+public interface ReadOnlyGraph<N> {
     List<Node> nodes();
 
     List<Node> nodes(N targetValue);
@@ -17,13 +17,7 @@ public interface ReadOnlyGraph<N, E> {
 
     Edge edge(Node node1, Node node2);
 
-    default Edge edge(E targetValue) {
-        return edges(targetValue).get(0);
-    }
-
     List<Edge> edges();
-
-    List<Edge> edges(E targetValue);
 
     List<Edge> edges(Node node);
 

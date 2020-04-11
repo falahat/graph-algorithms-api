@@ -2,7 +2,7 @@ package algorithms.traverse;
 
 import java.util.Iterator;
 
-public interface GraphTraversal <N, E> extends Iterator<TraversalStep>, Iterable<TraversalStep> {
+public interface GraphTraversal extends Iterator<TraversalStep>, Iterable<TraversalStep> {
     void markAsVisited(TraversalStep step);
     boolean isNotVisited(TraversalStep step);
 
@@ -17,5 +17,5 @@ public interface GraphTraversal <N, E> extends Iterator<TraversalStep>, Iterable
         return copy();
     }
 
-    GraphTraversal<N, E> copy();
+    GraphTraversal copy();
 }

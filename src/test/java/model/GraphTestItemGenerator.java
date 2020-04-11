@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 public interface GraphTestItemGenerator<N, E> {
     N generateNodeKey();
 
-    Graph<N, E> generateGraph();
+    Graph<N> generateGraph();
     Edge generateEdge(Node node1, Node node2);
     Node generateNode();
 

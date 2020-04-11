@@ -4,7 +4,7 @@ import model.GraphTestItemGenerator;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class GraphTest<N, E> {
-    Graph<N, E> graph;
+    Graph<N> graph;
 
     @BeforeEach
     public void setupGraph() {

@@ -3,7 +3,7 @@ package model.node;
 public class Node {
     private final String uniqueNodeId;
 
-    public Node(String uniqueNodeId) {
+    private Node(String uniqueNodeId) {
         this.uniqueNodeId = uniqueNodeId;
     }
 
@@ -11,7 +11,6 @@ public class Node {
         return this.uniqueNodeId;
     }
 
-    // TODO: remove this method and migrate away from using "N" anywhere
     public static <N> Node withNodeId(N nodeId) {
         return new Node(nodeId.toString());
     }

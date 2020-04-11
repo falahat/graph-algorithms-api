@@ -29,12 +29,11 @@ import java.util.List;
  * We can store labeled information about the graph and not need to worry about the exact data types of the nodes or edges.
  *
  * @param <N>
- * @param <E>
  */
-public class DelegateGraph<N, E> implements Graph<N, E> {
-    private final Graph<N, E> innerGraph;
+public class DelegateGraph<N> implements Graph<N> {
+    private final Graph<N> innerGraph;
 
-    public DelegateGraph(Graph<N, E> innerGraph) {
+    public DelegateGraph(Graph<N> innerGraph) {
         this.innerGraph = innerGraph;
     }
 
@@ -89,18 +88,8 @@ public class DelegateGraph<N, E> implements Graph<N, E> {
     }
 
     @Override
-    public Edge edge(E targetValue) {
-        return innerGraph.edge(targetValue);
-    }
-
-    @Override
     public List<Edge> edges() {
         return innerGraph.edges();
-    }
-
-    @Override
-    public List<Edge> edges(E targetValue) {
-        return innerGraph.edges(targetValue);
     }
 
     @Override

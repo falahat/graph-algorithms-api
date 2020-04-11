@@ -3,7 +3,7 @@ package model.graph;
 import model.edge.Edge;
 import model.node.Node;
 
-public interface Graph<N, E> extends ReadOnlyGraph<N, E> {
+public interface Graph<N> extends ReadOnlyGraph<N> {
     Node add(N node);
 
     Edge connect(Node node1, Node node2);
