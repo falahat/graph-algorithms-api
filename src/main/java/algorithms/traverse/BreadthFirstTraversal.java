@@ -4,8 +4,8 @@ import model.graph.Graph;
 
 import java.util.List;
 
-public class BreadthFirstTraversal<N, E> extends ListBackedGraphTraversal<N, E> {
-    public BreadthFirstTraversal(Graph graph) {
+public class BreadthFirstTraversal<N, E>  extends ListBackedGraphTraversal<N, E> {
+    public BreadthFirstTraversal(Graph<N, E> graph) {
         super(graph);
     }
 

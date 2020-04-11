@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Path {
+public class Path<N, E> {
     private final List<TraversalStep> stepsToDestination;
 
     public Path(List<TraversalStep> stepsToDestination) {

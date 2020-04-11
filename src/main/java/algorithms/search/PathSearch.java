@@ -10,34 +10,34 @@ import java.util.*;
 import java.util.function.Predicate;
 
 // TODO: Clean this class for code-clarity, it doesn't seem very elegant
-public class PathSearch {
-    private final Graph graph;
+public class PathSearch<N, E> {
+    private final Graph<N, E> graph;
     private final Node startNode;
     private final Predicate<TraversalStep> required;
-    private final GraphTraversal traversal;
+    private final GraphTraversal<N, E> traversal;
 
-    public PathSearch(Graph graph, Node start, Predicate<TraversalStep> required, GraphTraversal traversal) {
+    public PathSearch(Graph<N, E> graph, Node start, Predicate<TraversalStep> required, GraphTraversal<N, E> traversal) {
         this.graph = graph;
         this.startNode = start;
         this.required = required;
         this.traversal = traversal;
     }
 
-    public Optional<Path> search() {
-        StepLabeledGraph pathToSourceGraph = new StepLabeledGraph(graph);
+    public Optional<Path<N, E>> search() {
+        StepLabeledGraph<N, E> pathToSourceGraph = new StepLabeledGraph<>(graph);
 
         List<TraversalStep> stepsToDestination = findFirstMatchingStep(pathToSourceGraph)
                 .map(destination -> getReversePathToSource(pathToSourceGraph, destination))
                 .orElse(Collections.emptyList());
 
         if (!stepsToDestination.isEmpty() && stepsToDestination.get(0).node().equals(startNode)) {
-            return Optional.of(new Path(stepsToDestination));
+            return Optional.of(new Path<>(stepsToDestination));
         }
 
         return Optional.empty();
     }
 
-    private Optional<TraversalStep> findFirstMatchingStep(StepLabeledGraph pathToSource) {
+    private Optional<TraversalStep> findFirstMatchingStep(StepLabeledGraph<N, E> pathToSource) {
         TraversalStep destination = null;
         for (TraversalStep step : traversal) {
             pathToSource.setLabel(step.node(), step);
@@ -51,7 +51,7 @@ public class PathSearch {
         return Optional.ofNullable(destination);
     }
 
-    private List<TraversalStep> getReversePathToSource(StepLabeledGraph pathToSource,
+    private List<TraversalStep> getReversePathToSource(StepLabeledGraph<N, E> pathToSource,
                                                        TraversalStep destination) {
         Set<Node> visitedNodes = new HashSet<>();
         TraversalStep currentStep = destination;
@@ -70,8 +70,8 @@ public class PathSearch {
         return stepsToDestination;
     }
 
-    public static class StepLabeledGraph extends LabeledGraph<TraversalStep> {
-        public StepLabeledGraph(Graph innerGraph) {
+    public static class StepLabeledGraph<N, E> extends LabeledGraph<N, E, TraversalStep> {
+        public StepLabeledGraph(Graph<N, E> innerGraph) {
             super(innerGraph);
         }
     }

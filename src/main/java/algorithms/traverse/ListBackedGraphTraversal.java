@@ -2,15 +2,12 @@ package algorithms.traverse;
 
 import model.graph.Graph;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class ListBackedGraphTraversal<N, E> extends BaseGraphTraversal<N, E> {
     private List<TraversalStep> possibleSteps;
 
-    public ListBackedGraphTraversal(Graph graph) {
+    public ListBackedGraphTraversal(Graph<N, E> graph) {
         super(graph);
         this.possibleSteps = new ArrayList<>();
     }

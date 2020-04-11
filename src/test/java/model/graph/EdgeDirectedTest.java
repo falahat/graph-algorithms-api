@@ -6,8 +6,7 @@ import model.node.Node;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public abstract class EdgeDirectedTest<N, E> extends EdgeTest<N, E> {
 
