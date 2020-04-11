@@ -7,8 +7,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public abstract class BaseGraphTraversal<N, E> implements GraphTraversal<N, E> {
-    private Graph<N, E> graph;
+public abstract class BaseGraphTraversal<N, E> implements GraphTraversal {
+    private Graph graph;
     private Set<Node> visitedNodes;
     private boolean isInitialized;
     private List<Node> initialNodes;
@@ -16,11 +16,11 @@ public abstract class BaseGraphTraversal<N, E> implements GraphTraversal<N, E> {
     private TraversalStep currentStep;
 
     // TODO: investigate "Possible heap pollution from parameterized vararg type"
-    public BaseGraphTraversal(Graph<N, E> graph, Node... initialNodes) {
+    public BaseGraphTraversal(Graph graph, Node... initialNodes) {
         this(graph, Arrays.asList(initialNodes));
     }
 
-    public BaseGraphTraversal(Graph<N, E> graph, List<Node> initialNodes) {
+    public BaseGraphTraversal(Graph graph, List<Node> initialNodes) {
         this.graph = graph;
         this.visitedNodes = new HashSet<>();
         this.isInitialized = false;
@@ -101,9 +101,9 @@ public abstract class BaseGraphTraversal<N, E> implements GraphTraversal<N, E> {
     }
 
     @Override
-    public GraphTraversal<N, E> copy() {
+    public GraphTraversal copy() {
         try {
-            return (GraphTraversal<N, E>) this.getClass().getConstructors()[0].newInstance(this.graph);
+            return (GraphTraversal) this.getClass().getConstructors()[0].newInstance(this.graph);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
             // TODO: do something

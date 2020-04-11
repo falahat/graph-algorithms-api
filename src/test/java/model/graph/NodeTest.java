@@ -5,7 +5,6 @@ import model.node.Node;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
 import java.util.Collection;
 
 public abstract class NodeTest<N extends Node, E extends Edge> extends GraphTest<N, E> {
@@ -19,7 +18,7 @@ public abstract class NodeTest<N extends Node, E extends Edge> extends GraphTest
 
     @Test
     public void testGettingSingleNodes() {
-        Node node1 = graph.add(itemGenerator().generateNodeKey());
+        Node node1 = graph.add("node1");
 
         Collection<Node> nodes = graph.nodes();
         Assertions.assertTrue(nodes.contains(node1), "Must contain node1");
@@ -27,7 +26,7 @@ public abstract class NodeTest<N extends Node, E extends Edge> extends GraphTest
 
     @Test
     public void testGettingNodeByValue() {
-        Node node1 = graph.add(itemGenerator().generateNodeKey());
+        Node node1 = graph.add("node1");
 
         Collection<Node> nodes = graph.nodes();
         Assertions.assertTrue(nodes.contains(node1), "Must contain node1");
@@ -35,8 +34,8 @@ public abstract class NodeTest<N extends Node, E extends Edge> extends GraphTest
 
     @Test
     public void testGettingMultipleNodes() {
-        Node node1 = graph.add(itemGenerator().generateNodeKey());
-        Node node2 = graph.add(itemGenerator().generateNodeKey());
+        Node node1 = graph.add("node1");
+        Node node2 = graph.add("node2");
 
 
         Collection<Node> nodes = graph.nodes();

@@ -11,15 +11,14 @@ import java.util.Optional;
  * This serves as a labeled view of an existing graph.
  * Edges and Nodes can be labeled with a general data type.
  * See {@link DelegateGraph} for how this view is automatically kept in sync with the original copy.
- * @param <N>
- * @param <E>
+ *
  * @param <L>
  */
-public class LabeledGraph<N, E, L> extends DelegateGraph<N, E> {
+public class LabeledGraph<L> extends DelegateGraph {
     private final Map<Node, L> labelPerNode;
     private final Map<Edge, L> labelPerEdge;
 
-    public LabeledGraph(Graph<N, E> innerGraph) {
+    public LabeledGraph(Graph innerGraph) {
         super(innerGraph);
         this.labelPerNode = new HashMap<>();
         this.labelPerEdge = new HashMap<>();
