@@ -7,7 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public abstract class BaseGraphTraversal<N, E> implements GraphTraversal {
+public abstract class BaseGraphTraversal implements GraphTraversal {
     private Graph graph;
     private Set<Node> visitedNodes;
     private boolean isInitialized;
@@ -96,7 +96,7 @@ public abstract class BaseGraphTraversal<N, E> implements GraphTraversal {
 
     private List<TraversalStep> getTraversalsFromInitialNodes() {
         return initialNodes.stream()
-                .map(TraversalStep::<N, E>fromInitialNode)
+                .map(TraversalStep::fromInitialNode)
                 .collect(Collectors.toList());
     }
 

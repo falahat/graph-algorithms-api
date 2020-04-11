@@ -11,5 +11,5 @@ public abstract class GraphTest<N, E> {
         this.graph = itemGenerator().generateGraph();
     }
 
-    public abstract GraphTestItemGenerator<N, E> itemGenerator();
+    public abstract GraphTestItemGenerator itemGenerator();
 }

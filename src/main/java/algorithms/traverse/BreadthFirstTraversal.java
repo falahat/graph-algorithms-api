@@ -4,7 +4,7 @@ import model.graph.Graph;
 
 import java.util.List;
 
-public class BreadthFirstTraversal<N, E> extends ListBackedGraphTraversal<N, E> {
+public class BreadthFirstTraversal extends ListBackedGraphTraversal {
     public BreadthFirstTraversal(Graph graph) {
         super(graph);
     }
