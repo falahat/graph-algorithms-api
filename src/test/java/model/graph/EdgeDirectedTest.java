@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-public abstract class EdgeDirectedTest<N, E> extends EdgeTest<N, E> {
+public abstract class EdgeDirectedTest<N extends Cloneable, E> extends EdgeTest<N, E> {
 
     @Test
     public void testMultipleOutgoingAndIncoming() {

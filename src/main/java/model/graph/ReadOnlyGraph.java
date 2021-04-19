@@ -6,14 +6,20 @@ import model.node.Node;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface ReadOnlyGraph<N> {
+/**
+ *
+ * @param <V> - The type of values stored for each node of this graph.
+ */
+public interface ReadOnlyGraph<V extends Cloneable> {
     List<Node> nodes();
 
-    List<Node> nodes(N targetValue);
+    List<Node> nodes(V targetValue);
 
-    default Node node(N targetValue) {
+    default Node node(V targetValue) {
         return nodes(targetValue).get(0);
     }
+
+    V value(Node node);
 
     Edge edge(Node node1, Node node2);
 
@@ -29,6 +35,5 @@ public interface ReadOnlyGraph<N> {
                 .filter(edge -> node.equals(edge.source()))
                 .map(edge -> edge.other(node))
                 .collect(Collectors.toList());
-
     }
 }

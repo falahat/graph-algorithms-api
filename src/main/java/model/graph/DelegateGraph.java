@@ -28,17 +28,17 @@ import java.util.List;
  * By creating these layers as delegated graphs, we know that labels will automatically be removed if a node is removed.
  * We can store labeled information about the graph and not need to worry about the exact data types of the nodes or edges.
  *
- * @param <N>
+ * @param <V>
  */
-public class DelegateGraph<N> implements Graph<N> {
-    private final Graph<N> innerGraph;
+public class DelegateGraph<V extends Cloneable> implements Graph<V> {
+    private final Graph<V> innerGraph;
 
-    public DelegateGraph(Graph<N> innerGraph) {
+    public DelegateGraph(Graph<V> innerGraph) {
         this.innerGraph = innerGraph;
     }
 
     @Override
-    public Node add(N node) {
+    public Node add(V node) {
         return innerGraph.add(node);
     }
 
@@ -48,7 +48,7 @@ public class DelegateGraph<N> implements Graph<N> {
     }
 
     @Override
-    public Edge connect(N nodeValue1, N nodeValue2) {
+    public Edge connect(V nodeValue1, V nodeValue2) {
         return innerGraph.connect(nodeValue1, nodeValue2);
     }
 
@@ -63,7 +63,7 @@ public class DelegateGraph<N> implements Graph<N> {
     }
 
     @Override
-    public void disconnect(N nodeValue1, N nodeValue2) {
+    public void disconnect(V nodeValue1, V nodeValue2) {
         innerGraph.disconnect(nodeValue1, nodeValue2);
     }
 
@@ -73,13 +73,13 @@ public class DelegateGraph<N> implements Graph<N> {
     }
 
     @Override
-    public List<Node> nodes(N targetValue) {
+    public List<Node> nodes(V targetValue) {
         return innerGraph.nodes(targetValue);
     }
 
     @Override
-    public Node node(N targetValue) {
-        return innerGraph.node(targetValue);
+    public V value(Node node) {
+        return innerGraph.value(node);
     }
 
     @Override
@@ -94,16 +94,11 @@ public class DelegateGraph<N> implements Graph<N> {
 
     @Override
     public List<Edge> edges(Node node) {
-        return innerGraph.edges(node);
+        return null;
     }
 
     @Override
     public boolean contains(Node node) {
-        return innerGraph.contains(node);
-    }
-
-    @Override
-    public List<Node> neighbors(Node node) {
-        return innerGraph.neighbors(node);
+        return false;
     }
 }

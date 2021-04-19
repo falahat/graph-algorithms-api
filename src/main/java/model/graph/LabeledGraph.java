@@ -14,7 +14,7 @@ import java.util.Optional;
  * @param <N>
  * @param <L>
  */
-public class LabeledGraph<N, L> extends DelegateGraph<N> {
+public class LabeledGraph<N extends Cloneable, L> extends DelegateGraph<N> {
     private final Map<Node, L> labelPerNode;
     private final Map<Edge, L> labelPerEdge;
 

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class EdgeTest<N, E> extends GraphTest<N> {
+public abstract class EdgeTest<N extends Cloneable, E> extends GraphTest<N> {
 
     @Test
     public void testGettingZeroEdges() {

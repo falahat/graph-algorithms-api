@@ -1,6 +1,6 @@
 package model.node;
 
-public class Node {
+public class Node implements Cloneable {
     private final String uniqueNodeId;
 
     private Node(String uniqueNodeId) {

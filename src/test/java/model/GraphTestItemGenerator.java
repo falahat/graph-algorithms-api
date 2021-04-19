@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public interface GraphTestItemGenerator<N> {
+public interface GraphTestItemGenerator<N extends Cloneable> {
     N generateNodeKey();
 
     Graph<N> generateGraph();

@@ -3,7 +3,7 @@ package model.graph;
 import model.GraphTestItemGenerator;
 import org.junit.jupiter.api.BeforeEach;
 
-public abstract class GraphTest<N> {
+public abstract class GraphTest<N extends Cloneable> {
     Graph<N> graph;
 
     @BeforeEach
