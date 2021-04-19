@@ -1,6 +1,5 @@
 package model.graph;
 
-import model.edge.Edge;
 import model.node.Node;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 
-public abstract class NodeTest<N extends Node, E extends Edge> extends GraphTest<N, E> {
+public abstract class NodeTest<N extends Node> extends GraphTest<N> {
 
     @Test
     public void testGettingZeroNodes() {
