@@ -1,7 +1,5 @@
 package algorithms.traverse;
 
-import model.node.Node;
-
 import java.util.Iterator;
 
 public interface GraphTraversal<K> extends Iterator<K> {
