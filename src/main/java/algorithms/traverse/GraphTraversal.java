@@ -4,20 +4,15 @@ import model.node.Node;
 
 import java.util.Iterator;
 
-public interface GraphTraversal extends Iterator<Node>, Iterable<Node> {
-    void markAsVisited(Node step);
-    boolean isNotVisited(Node step);
+public interface GraphTraversal<K> extends Iterator<K> {
+    void markAsVisited(K step);
+    boolean isVisited(K step);
 
-    default boolean canVisit(Node node) {
-        return isNotVisited(node);
+    default boolean canVisit(K node) {
+        return !isVisited(node);
     }
 
-    default void onVisit(Node destination) {} // Do Nothing
+    default void onVisit(K destination) {} // Do Nothing
 
-    @Override
-    default Iterator<Node> iterator() {
-        return copy();
-    }
-
-    GraphTraversal copy();
+    GraphTraversal<K> copy();
 }
