@@ -5,7 +5,7 @@ import model.node.Node;
 import java.util.Iterator;
 
 public interface GraphTraversal<K> extends Iterator<K> {
-    void markAsVisited(K step);
+    void markVisited(K step);
     boolean isVisited(K step);
 
     default boolean canVisit(K node) {
