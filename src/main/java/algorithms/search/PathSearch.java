@@ -3,10 +3,8 @@ package algorithms.search;
 import algorithms.traverse.GraphTraversal;
 import algorithms.traverse.Edge;
 import model.graph.Graph;
-import model.graph.LabeledGraph;
 import model.node.Node;
 
-import java.util.*;
 import java.util.function.Predicate;
 
 // TODO: Clean this class for code-clarity, it doesn't seem very elegant

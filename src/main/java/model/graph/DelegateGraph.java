@@ -1,9 +1,6 @@
 package model.graph;
 
-import model.node.Node;
-
 import java.util.Collection;
-import java.util.List;
 
 /**
  * This serves as a view of an existing graph. If nodes are added or removed from either graph,
@@ -13,7 +10,7 @@ import java.util.List;
  * throws an "UnsupportedOperationException" when a programmer calls {@code remove()}.
  *
  * This can be used as a labeled overview of an existing graph to attach arbitrary data to each node
- * or edge. See {@link LabeledGraph}.
+ * or edge. See {@link DelegatingLabeledGraph}.
  *
  * This can be a useful abstraction for extracting multiple types of information from a graph network without
  * duplicating the underlying data.
