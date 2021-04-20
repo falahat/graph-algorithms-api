@@ -1,37 +1,35 @@
 package model.graph;
 
-import algorithms.traverse.Edge;
 import model.node.Node;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * This serves as a labeled view of an existing graph.
  * Edges and Nodes can be labeled with a general data type.
  * See {@link DelegateGraph} for how this view is automatically kept in sync with the original copy.
- * @param <L> - Label Type
+ * @param <V> - Label Type
  */
-public class LabeledGraph<L extends Node> extends DelegateGraph {
-    private final Map<Node, L> labelPerNode;
+public class LabeledGraph<K, V> extends DelegateGraph<K> {
+    private final Map<K, V> labelPerNode;
 
-    public LabeledGraph(Graph innerGraph) {
+    public LabeledGraph(Graph<K> innerGraph) {
         super(innerGraph);
         this.labelPerNode = new HashMap<>();
     }
 
-    public Optional<L> getLabel(Node node) {
+    public Optional<V> get(K node) {
         return Optional.ofNullable(labelPerNode.getOrDefault(node, null));
     }
 
-    public void setLabel(Node node, L label) {
+    public void put(K node, V label) {
         labelPerNode.put(node, label);
     }
 
     @Override
-    public void remove(Node node) {
+    public void remove(K node) {
         this.labelPerNode.remove(node);
         super.remove(node);
     }

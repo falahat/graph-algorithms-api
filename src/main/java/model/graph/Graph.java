@@ -1,11 +1,9 @@
 package model.graph;
 
-import model.node.Node;
+public interface Graph<K> extends ReadOnlyGraph<K> {
+    void add(K key);
+    void remove(K key);
 
-public interface Graph extends ReadOnlyGraph {
-    void add(Node node);
-    void remove(Node node);
-
-    void connect(Node node1, Node node2);
-    void disconnect(Node node1, Node node2);
+    void connect(K source, K destination);
+    void disconnect(K source, K destination);
 }

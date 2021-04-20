@@ -29,50 +29,55 @@ import java.util.List;
  * We can store labeled information about the graph and not need to worry about the exact data types of the nodes or edges.
  *
  */
-public class DelegateGraph implements Graph {
-    private final Graph innerGraph;
+public class DelegateGraph<K> implements Graph<K> {
+    private final Graph<K> innerGraph;
 
-    public DelegateGraph(Graph innerGraph) {
+    public DelegateGraph(Graph<K> innerGraph) {
         this.innerGraph = innerGraph;
     }
 
     @Override
-    public void add(Node node) {
+    public void add(K node) {
         innerGraph.add(node);
     }
 
     @Override
-    public void remove(Node node) {
+    public void remove(K node) {
         innerGraph.remove(node);
     }
 
     @Override
-    public void connect(Node node1, Node node2) {
+    public void connect(K node1, K node2) {
         innerGraph.connect(node1, node2);
     }
 
     @Override
-    public void disconnect(Node node1, Node node2) {
+    public void disconnect(K node1, K node2) {
         innerGraph.disconnect(node1, node2);
     }
 
     @Override
-    public Collection<Node> nodes() {
+    public Collection<K> nodes() {
         return innerGraph.nodes();
     }
+//
+//    @Override
+//    public Node<K> getNode(K key) {
+//        return innerGraph.getNode(key);
+//    }
 
     @Override
-    public boolean contains(Node node) {
+    public boolean contains(K node) {
         return innerGraph.contains(node);
     }
 
     @Override
-    public boolean isConnected(Node src, Node dst) {
+    public boolean isConnected(K src, K dst) {
         return innerGraph.isConnected(src, dst);
     }
 
     @Override
-    public Collection<Node> edges(Node source) {
+    public Collection<K> edges(K source) {
         return innerGraph.edges(source);
     }
 }
