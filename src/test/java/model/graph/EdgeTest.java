@@ -6,25 +6,25 @@ import org.junit.jupiter.api.Test;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class EdgeTest<N, GRAPH extends Graph<N>> extends GraphTest<N, GRAPH> {
+public abstract class EdgeTest extends GraphTest {
 
     @Test
     public void testSingleConnection() {
-        List<N> nodes = itemGenerator().generateNodes(2);
-        nodes.forEach(graph::add);
+        List<Object> nodes = testUtil().generateNodes(2);
+        nodes.forEach(this.graph::add);
 
-        connect(nodes.get(0), nodes.get(1));
+        graph.connect(nodes.get(0), nodes.get(1));
 
         assertConnected(nodes.get(0), nodes.get(1));
     }
 
     @Test
     public void testGettingMultipleEdges() {
-        List<N> nodes = itemGenerator().generateNodes(4);
+        List<Object> nodes = testUtil().generateNodes(4);
         nodes.forEach(graph::add);
 
-        connect(nodes.get(0), nodes.get(1));
-        connect(nodes.get(2), nodes.get(3));
+        graph.connect(nodes.get(0), nodes.get(1));
+        graph.connect(nodes.get(2), nodes.get(3));
 
         assertConnected(nodes.get(0), nodes.get(1));
         assertConnected(nodes.get(2), nodes.get(3));
@@ -32,34 +32,26 @@ public abstract class EdgeTest<N, GRAPH extends Graph<N>> extends GraphTest<N, G
 
     @Test
     public void testDisconnected() {
-        List<N> nodes = itemGenerator().generateNodes(2);
+        List<Object> nodes = testUtil().generateNodes(2);
         nodes.forEach(graph::add);
 
-        connect(nodes.get(0), nodes.get(1));
+        graph.connect(nodes.get(0), nodes.get(1));
 
         assertConnected(nodes.get(0), nodes.get(1));
 
-        disconnect(nodes.get(0), nodes.get(1));
+        graph.disconnect(nodes.get(0), nodes.get(1));
 
         assertNotConnected(nodes.get(0), nodes.get(1));
     }
 
-    public void connect(N source, N destination) {
-        graph.connect(source, destination);
-    }
-
-    public void disconnect(N source, N destination) {
-        graph.disconnect(source, destination);
-    }
-
-    public void assertConnected(N source, N destination) {
-        Collection<N> destinations = graph.edges(source);
+    public void assertConnected(Object source, Object destination) {
+        Collection<Object> destinations = graph.edges(source);
         Assertions.assertTrue(destinations.contains(destination), "Must contain destination");
         Assertions.assertTrue(graph.isConnected(source, destination));
     }
 
-    public void assertNotConnected(N source, N destination) {
-        Collection<N> destinations = graph.edges(source);
+    public void assertNotConnected(Object source, Object destination) {
+        Collection<Object> destinations = graph.edges(source);
         Assertions.assertFalse(destinations.contains(destination), "Must not contain destination");
         Assertions.assertFalse(graph.isConnected(source, destination));
     }

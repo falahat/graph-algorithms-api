@@ -5,37 +5,37 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 
-public abstract class NodeTest<K, GRAPH extends Graph<K>> extends GraphTest<K, GRAPH> {
+public abstract class NodeTest extends GraphTest {
 
     @Test
     public void testGettingZeroNodes() {
-        Collection<K> nodes = graph.nodes();
+        Collection<Object> nodes = graph.nodes();
         Assertions.assertNotNull(nodes, "Must not be null");
         Assertions.assertTrue(nodes.isEmpty(), "Must be empty list");
     }
 
     @Test
     public void testGettingSingleNodes() {
-        K node1 = itemGenerator().generateNode(); graph.add(node1);
+        Object node1 = testUtil().generateNode(); graph.add(node1);
 
-        Collection<K> nodes = graph.nodes();
+        Collection<Object> nodes = graph.nodes();
         Assertions.assertTrue(nodes.contains(node1), "Must contain node1");
     }
 
     @Test
     public void testGettingNodeByValue() {
-        K node1 = itemGenerator().generateNode(); graph.add(node1);
+        Object node1 = testUtil().generateNode(); graph.add(node1);
 
-        Collection<K> nodes = graph.nodes();
+        Collection<Object> nodes = graph.nodes();
         Assertions.assertTrue(nodes.contains(node1), "Must contain node1");
     }
 
     @Test
     public void testGettingMultipleNodes() {
-        K node1 = itemGenerator().generateNode(); graph.add(node1);
-        K node2 = itemGenerator().generateNode(); graph.add(node2);
+        Object node1 = testUtil().generateNode(); graph.add(node1);
+        Object node2 = testUtil().generateNode(); graph.add(node2);
 
-        Collection<K> nodes = graph.nodes();
+        Collection<Object> nodes = graph.nodes();
         Assertions.assertTrue(nodes.contains(node1), "Must contain node1");
         Assertions.assertTrue(nodes.contains(node2), "Must contain node2");
     }
