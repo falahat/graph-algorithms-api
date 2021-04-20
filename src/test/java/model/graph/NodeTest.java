@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 
-public abstract class NodeTest<K> extends GraphTest<K> {
+public abstract class NodeTest<K, GRAPH extends Graph<K>> extends GraphTest<K, GRAPH> {
 
     @Test
     public void testGettingZeroNodes() {
