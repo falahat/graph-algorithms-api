@@ -1,39 +1,22 @@
 package model.graph;
 
-import model.edge.Edge;
 import model.node.Node;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collection;
 
 /**
  *
- * @param <V> - The type of values stored for each node of this graph.
+ * @param <K> The key values for this graph. Every node will be uniquely identified by this.
  */
-public interface ReadOnlyGraph<V extends Cloneable> {
-    List<Node> nodes();
-
-    List<Node> nodes(V targetValue);
-
-    default Node node(V targetValue) {
-        return nodes(targetValue).get(0);
-    }
-
-    V value(Node node);
-
-    Edge edge(Node node1, Node node2);
-
-    List<Edge> edges();
-
-    List<Edge> edges(Node node);
+public interface ReadOnlyGraph<K> {
+    Collection<Node> nodes();
 
     boolean contains(Node node);
 
-    default List<Node> neighbors(Node node) {
-        return edges(node)
-                .stream()
-                .filter(edge -> node.equals(edge.source()))
-                .map(edge -> edge.other(node))
-                .collect(Collectors.toList());
-    }
+    boolean isConnected(Node src, Node dst);
+
+    /**
+     * @return All nodes such that isConnected(source, node) == true;
+     */
+    Collection<Node> edges(Node source);
 }

@@ -18,7 +18,7 @@ public abstract class NodeTest<N extends Node> extends GraphTest<N> {
 
     @Test
     public void testGettingSingleNodes() {
-        Node node1 = graph.add(itemGenerator().generateNodeKey());
+        Node node1 = itemGenerator().generateNode(); graph.add(node1);
 
         Collection<Node> nodes = graph.nodes();
         Assertions.assertTrue(nodes.contains(node1), "Must contain node1");
@@ -26,7 +26,7 @@ public abstract class NodeTest<N extends Node> extends GraphTest<N> {
 
     @Test
     public void testGettingNodeByValue() {
-        Node node1 = graph.add(itemGenerator().generateNodeKey());
+        Node node1 = itemGenerator().generateNode(); graph.add(node1);
 
         Collection<Node> nodes = graph.nodes();
         Assertions.assertTrue(nodes.contains(node1), "Must contain node1");
@@ -34,9 +34,8 @@ public abstract class NodeTest<N extends Node> extends GraphTest<N> {
 
     @Test
     public void testGettingMultipleNodes() {
-        Node node1 = graph.add(itemGenerator().generateNodeKey());
-        Node node2 = graph.add(itemGenerator().generateNodeKey());
-
+        Node node1 = itemGenerator().generateNode(); graph.add(node1);
+        Node node2 = itemGenerator().generateNode(); graph.add(node2);
 
         Collection<Node> nodes = graph.nodes();
         Assertions.assertTrue(nodes.contains(node1), "Must contain node1");

@@ -1,8 +1,8 @@
 package model.graph;
 
-import model.edge.Edge;
 import model.node.Node;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -28,28 +28,17 @@ import java.util.List;
  * By creating these layers as delegated graphs, we know that labels will automatically be removed if a node is removed.
  * We can store labeled information about the graph and not need to worry about the exact data types of the nodes or edges.
  *
- * @param <V>
  */
-public class DelegateGraph<V extends Cloneable> implements Graph<V> {
-    private final Graph<V> innerGraph;
+public class DelegateGraph implements Graph {
+    private final Graph innerGraph;
 
-    public DelegateGraph(Graph<V> innerGraph) {
+    public DelegateGraph(Graph innerGraph) {
         this.innerGraph = innerGraph;
     }
 
     @Override
-    public Node add(V node) {
-        return innerGraph.add(node);
-    }
-
-    @Override
-    public Edge connect(Node node1, Node node2) {
-        return innerGraph.connect(node1, node2);
-    }
-
-    @Override
-    public Edge connect(V nodeValue1, V nodeValue2) {
-        return innerGraph.connect(nodeValue1, nodeValue2);
+    public void add(Node node) {
+        innerGraph.add(node);
     }
 
     @Override
@@ -58,47 +47,32 @@ public class DelegateGraph<V extends Cloneable> implements Graph<V> {
     }
 
     @Override
+    public void connect(Node node1, Node node2) {
+        innerGraph.connect(node1, node2);
+    }
+
+    @Override
     public void disconnect(Node node1, Node node2) {
         innerGraph.disconnect(node1, node2);
     }
 
     @Override
-    public void disconnect(V nodeValue1, V nodeValue2) {
-        innerGraph.disconnect(nodeValue1, nodeValue2);
-    }
-
-    @Override
-    public List<Node> nodes() {
+    public Collection<Node> nodes() {
         return innerGraph.nodes();
     }
 
     @Override
-    public List<Node> nodes(V targetValue) {
-        return innerGraph.nodes(targetValue);
-    }
-
-    @Override
-    public V value(Node node) {
-        return innerGraph.value(node);
-    }
-
-    @Override
-    public Edge edge(Node node1, Node node2) {
-        return innerGraph.edge(node1, node2);
-    }
-
-    @Override
-    public List<Edge> edges() {
-        return innerGraph.edges();
-    }
-
-    @Override
-    public List<Edge> edges(Node node) {
-        return null;
-    }
-
-    @Override
     public boolean contains(Node node) {
-        return false;
+        return innerGraph.contains(node);
+    }
+
+    @Override
+    public boolean isConnected(Node src, Node dst) {
+        return innerGraph.isConnected(src, dst);
+    }
+
+    @Override
+    public Collection<Node> edges(Node source) {
+        return innerGraph.edges(source);
     }
 }

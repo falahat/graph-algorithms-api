@@ -1,17 +1,30 @@
 package model.node;
 
-public class Node implements Cloneable {
-    private final String uniqueNodeId;
 
-    private Node(String uniqueNodeId) {
-        this.uniqueNodeId = uniqueNodeId;
+import java.util.Objects;
+
+/**
+ *
+ * @param <K> - The type of the key value which makes each node unique from one another
+ */
+public class Node<K> {
+    private final K key;
+    public Node(K key) {
+        this.key = key;
     }
 
-    public String getUniqueIdentifier() {
-        return this.uniqueNodeId;
+    @Override
+    public int hashCode() {
+        return this.key.hashCode();
     }
 
-    public static <N> Node withNodeId(N nodeId) {
-        return new Node(nodeId.toString());
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Node) && Objects.equals(this.key, ((Node) obj).key);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Node[%s]", key.toString());
     }
 }
