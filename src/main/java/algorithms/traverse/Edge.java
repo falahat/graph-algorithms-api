@@ -2,8 +2,6 @@ package algorithms.traverse;
 
 import model.node.Node;
 
-import java.util.Optional;
-
 public class Edge {
     private final Node destination;
     private final Node source;

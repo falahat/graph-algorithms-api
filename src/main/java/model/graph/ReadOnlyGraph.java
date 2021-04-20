@@ -1,9 +1,6 @@
 package model.graph;
 
-import model.node.Node;
-
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  *

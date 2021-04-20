@@ -2,7 +2,6 @@ package model.graph;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * This serves as a labeled view of an existing graph.
