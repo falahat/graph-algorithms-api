@@ -1,15 +1,15 @@
 package model.graph;
 
-import model.GraphTestItemGenerator;
+import model.TestItemGenerator;
 import org.junit.jupiter.api.BeforeEach;
 
-public abstract class GraphTest<N> {
-    Graph graph;
+public abstract class GraphTest<K, GRAPH extends Graph<K>> {
+    GRAPH graph;
 
     @BeforeEach
     public void setupGraph() {
         this.graph = itemGenerator().generateGraph();
     }
 
-    public abstract GraphTestItemGenerator<N> itemGenerator();
+    public abstract TestItemGenerator<K, GRAPH> itemGenerator();
 }
