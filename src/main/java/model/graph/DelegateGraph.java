@@ -57,11 +57,6 @@ public class DelegateGraph<K> implements Graph<K> {
     public Collection<K> nodes() {
         return innerGraph.nodes();
     }
-//
-//    @Override
-//    public Node<K> getNode(K key) {
-//        return innerGraph.getNode(key);
-//    }
 
     @Override
     public boolean contains(K node) {

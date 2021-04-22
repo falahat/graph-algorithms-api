@@ -24,6 +24,10 @@ public class DelegatingLabeledGraph<K, V> extends DelegateGraph<K> implements La
 
     @Override
     public void put(K node, V label) {
+        if (!contains(node)) {
+            this.add(node);
+        }
+
         labelPerNode.put(node, label);
     }
 
