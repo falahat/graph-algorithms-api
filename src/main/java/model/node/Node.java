@@ -13,10 +13,6 @@ public class Node<K> {
         this.key = key;
     }
 
-    public K getKey() {
-        return this.key;
-    }
-
     @Override
     public int hashCode() {
         return this.key.hashCode();

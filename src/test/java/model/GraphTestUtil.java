@@ -23,11 +23,4 @@ public abstract class GraphTestUtil<K, GRAPH extends Graph<K>> {
                 .collect(Collectors.toList());
     }
 
-    public void addToGraph(GRAPH graph, K node) {
-        graph.add(node);
-    }
-
-    public void removeFromGraph(GRAPH graph, K node) {
-        graph.remove(node);
-    }
 }
